@@ -32,6 +32,7 @@ app.use(`/maj`, majRoutes);
 app.use(`/exm`, exmRoutes);
 app.use(`/frm`, frmRoutes);
 app.use(`/nws`, nwsRoutes);
+
 app.use(`/sch`, schRoutes);
 app.use(`/auth`, authRoutes);
 
