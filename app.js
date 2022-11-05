@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const compression = require(`compression`);
 const morgan = require("morgan");
 const path = require("path");
-
+const cors = require(`cors`);
 const uniRoutes = require("./routes/uni");
 const admRoutes = require("./routes/adm");
 const yosRoutes = require("./routes/yos");
