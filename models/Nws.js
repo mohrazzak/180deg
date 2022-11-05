@@ -23,12 +23,12 @@ class Nws {
   }
 
   static findAll() {
-    const sql = `SELECT * FROM news;`;
+    const sql = `SELECT * FROM news INNER JOIN uni ON news.uni_id = uni.id;`;
     return db.execute(sql);
   }
 
   static findById(id) {
-    const sql = `SELECT * FROM news WHERE id = ?;`;
+    const sql = `SELECT * FROM news INNER JOIN uni ON news.uni_id = uni.id WHERE id = ?;`;
     return db.query(sql, id);
   }
 

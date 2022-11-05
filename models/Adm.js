@@ -53,12 +53,59 @@ class Adm {
   }
 
   static findAll() {
-    const sql = `SELECT * FROM admission;`;
+    const sql = `
+        SELECT 
+    uni_id,
+    uni_name,
+    city,
+    admission.id AS adm_id,
+    start_date,
+    register_type,
+    end_date,
+    result_date,
+    price,
+    currency,
+    bank_info,
+    note,
+    register_url,
+    seats_url,
+    acceptable_degrees_url,
+    installment_url
+FROM
+    admission
+        INNER JOIN
+    uni ON uni.id = admission.uni_id;
+    `;
     return db.execute(sql);
   }
 
   static findById(id) {
-    const sql = `SELECT * FROM admission WHERE id = ?;`;
+    // const sql = `SELECT * FROM admission WHERE id = ?;`;
+    const sql = `
+    SELECT 
+    uni_id,
+    uni_name,
+    city,
+    admission.id AS adm_id,
+    start_date,
+    register_type,
+    end_date,
+    result_date,
+    price,
+    currency,
+    bank_info,
+    note,
+    register_url,
+    seats_url,
+    acceptable_degrees_url,
+    installment_url
+FROM
+    admission
+        INNER JOIN
+    uni ON uni.id = admission.uni_id
+WHERE
+    admission.id = 1;
+    `;
     return db.query(sql, id);
   }
 

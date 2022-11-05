@@ -27,13 +27,13 @@ app.use(cors());
 
 // Routes
 app.use(`/uni`, uniRoutes);
-app.use(`/adm`, admRoutes);
-app.use(`/yos`, yosRoutes);
-app.use(`/maj`, majRoutes);
-app.use(`/exm`, exmRoutes);
-app.use(`/frm`, frmRoutes);
-app.use(`/nws`, nwsRoutes);
-
+app.use(`/adm`, admRoutes); // add uniname and city DONE
+app.use(`/yos`, yosRoutes); // add uniname and city DONE
+app.use(`/maj`, majRoutes); // add image, DONE
+app.use(`/exm`, exmRoutes); // uniimage, name,
+app.use(`/frm`, frmRoutes); 
+app.use(`/nws`, nwsRoutes); // add date, add uni name
+// uni major
 app.use(`/sch`, schRoutes);
 app.use(`/auth`, authRoutes);
 

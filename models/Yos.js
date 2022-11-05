@@ -48,12 +48,48 @@ class Yos {
   }
 
   static findAll() {
-    const sql = `SELECT * FROM yos;`;
+    const sql = `SELECT 
+    yos.id AS yos_id,
+    uni_name,
+    city,
+    exam_date,
+    degree_expiry,
+    exam_cost,
+    currency,
+    register_start,
+    register_end,
+    result_date,
+    exam_centers,
+    uni_id
+FROM
+    yos
+        INNER JOIN
+    uni ON yos.uni_id = uni.id;`;
     return db.execute(sql);
   }
 
   static findById(id) {
-    const sql = `SELECT * FROM yos WHERE id = ?;`;
+    const sql = `
+SELECT 
+    yos.id AS yos_id,
+    uni_name,
+    city,
+    exam_date,
+    degree_expiry,
+    exam_cost,
+    currency,
+    register_start,
+    register_end,
+    result_date,
+    exam_centers,
+    uni_id
+FROM
+    yos
+        INNER JOIN
+    uni ON yos.uni_id = uni.id
+WHERE
+    yos.id = ?;
+    `;
     return db.query(sql, id);
   }
   static delete(id) {

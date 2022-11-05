@@ -74,7 +74,7 @@ class Uni {
   static async findInfoById(id) {
     const sql1 = `SELECT * FROM uni WHERE id = ?;`;
     const sql2 = `
-    SELECT major_name FROM major
+    SELECT major_name,maj_id FROM major
     INNER JOIN uni_major ON 
     uni_major.maj_id = major.id 
     INNER JOIN uni ON

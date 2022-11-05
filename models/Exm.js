@@ -19,12 +19,36 @@ class Exm {
   }
 
   static findAll() {
-    const sql = `SELECT * FROM old_exam;`;
+    const sql = `     SELECT 
+    old_exam.id AS exm_id,
+    uni_id,
+    url,
+    theYear,
+    uni_name,
+    logo_url
+FROM
+    old_exam
+        INNER JOIN
+    uni ON uni.id = old_exam.uni_id;`;
     return db.execute(sql);
   }
 
   static findById(id) {
-    const sql = `SELECT * FROM old_exam WHERE id = ?;`;
+    const sql = `
+     SELECT 
+    old_exam.id AS exm_id,
+    uni_id,
+    url,
+    theYear,
+    uni_name,
+    logo_url
+FROM
+    old_exam
+        INNER JOIN
+    uni ON uni.id = old_exam.uni_id
+WHERE 
+    old_exam.id = ?;
+    `;
     return db.query(sql, id);
   }
 

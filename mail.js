@@ -1,14 +1,15 @@
-"use strict";
+require(`dotenv`).config();
+("use strict");
 const nodemailer = require("nodemailer");
 
 exports.sendMail = async (email, token, subject, message) => {
   let transporter = nodemailer.createTransport({
-    host: "smtp.hostinger.com",
-    port: 465,
+    host: process.env.EM_HOST,
+    port: process.env.EM_PORT,
     secure: true,
     auth: {
-      user: "support@180degreesacademy.net",
-      pass: "Hmode1422@",
+      user: process.env.EM_USER,
+      pass: process.env.EM_PASSWORD,
     },
   });
   await transporter.sendMail({

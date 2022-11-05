@@ -15,12 +15,12 @@ exports.getAllAdm = async (req, res, next) => {
 exports.getAdm = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const [uni, _] = await Adm.findById(id);
-    if (!uni || uni.length == 0)
+    const [adm, _] = await Adm.findById(id);
+    if (!adm || adm.length == 0)
       errorHandler(next, null, "حدث خطأ المفاضلة غير موجودة", 400);
-    res.json({ uni });
+    res.json({ adm });
   } catch (err) {
-    errorHandler(next, err, "حدث خطأ عند الحصول على الجامعة");
+    errorHandler(next, err, "حدث خطأ عند الحصول على المفاضلة");
   }
 };
 
@@ -104,7 +104,7 @@ exports.updateAdm = async (req, res, next) => {
     await Adm.update(uniData);
     res.json({ message: "تم تعديل الجامعة بنجاح " });
   } catch (err) {
-    errorHandler(next, err, "حدث خطأ عند تعديل معلومات الجامعة");
+    errorHandler(next, err, "حدث خطأ عند تعديل معلومات المفاضلة");
   }
 };
 
