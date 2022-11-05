@@ -11,7 +11,6 @@ exports.getAllUnis = async (req, res, next) => {
   }
 };
 
-
 // Get university
 exports.getUni = async (req, res, next) => {
   try {
@@ -50,8 +49,10 @@ exports.newUni = async (req, res, next) => {
       languages,
       pre_video_link,
     } = req.body;
-    if (!req.file)
+    if (!req.file) {
       errorHandler(next, null, "حدث خطأ عند رفع صورة الجامعة", 400);
+      console.log(req.file);
+    }
     const logo_url = req.file.path.replace("\\", "/").replace("\\", "/");
     const uniData = {
       uni_name,
@@ -128,4 +129,3 @@ exports.deleteUni = async (req, res, next) => {
     errorHandler(next, err, "حدث خطأ عند حذف الجامعة");
   }
 };
-
