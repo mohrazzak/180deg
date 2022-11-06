@@ -15,10 +15,11 @@ const frmRoutes = require("./routes/frm");
 const nwsRoutes = require("./routes/nws");
 const schRoutes = require("./routes/sch");
 const authRoutes = require("./routes/auth");
+const imagesRoutes = require("./routes/images");
 const app = express();
 
 // Middlewares
-app.use(express.static(path.join(__dirname)));
+// app.use(express.static(path.join(__dirname)));
 app.use(express.json());
 app.use(helmet());
 app.use(compression());
@@ -31,11 +32,12 @@ app.use(`/adm`, admRoutes); // add uniname and city DONE
 app.use(`/yos`, yosRoutes); // add uniname and city DONE
 app.use(`/maj`, majRoutes); // add image, DONE
 app.use(`/exm`, exmRoutes); // uniimage, name,
-app.use(`/frm`, frmRoutes); 
+app.use(`/frm`, frmRoutes);
 app.use(`/nws`, nwsRoutes); // add date, add uni name
 // uni major
 app.use(`/sch`, schRoutes);
 app.use(`/auth`, authRoutes);
+app.use(`/images`, imagesRoutes);
 
 // Error handlers
 app.use((error, req, res, next) => {

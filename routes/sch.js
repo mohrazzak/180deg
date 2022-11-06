@@ -30,13 +30,19 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 // Get all unis
-router.get(`/`,auth, SchControllers.getAllSch);
+router.get(`/`, auth, SchControllers.getAllSch);
 
 // Get single uni
-router.get(`/:id`,auth, SchControllers.getSch);
+router.get(`/:id`, auth, SchControllers.getSch);
 
 // Add new uni
-router.post(`/new`,auth,isAdmin, upload.single("image"), SchControllers.newSch);
+router.post(
+  `/new`,
+  auth,
+  isAdmin,
+  upload.single("image"),
+  SchControllers.newSch
+);
 
 // Update uni
 router.put(
@@ -49,5 +55,18 @@ router.put(
 
 // Delete uni
 router.delete(`/delete/:id`, auth, isAdmin, SchControllers.deleteSch);
+
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { uploadFile, getFileStream } = require("../aws/s3");
+router.get("/images/:key", (req, res) => {
+  console.log(req.params);
+
+  const key = "sch/" + req.params.key;
+  const readStream = getFileStream(key);
+
+  readStream.pipe(res);
+});
 
 module.exports = router;

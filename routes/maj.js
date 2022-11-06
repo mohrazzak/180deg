@@ -32,8 +32,10 @@ const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 // Get all unis
 router.get(`/`, auth, majControllers.getAllMaj);
 
+router.get(`/name`, majControllers.getMajName);
 // Get single uni
 router.get(`/:id`, auth, majControllers.getMaj);
+
 
 // Add new uni
 router.post(
@@ -61,5 +63,18 @@ router.post(`/link`, auth, isAdmin, majControllers.linkUniMajor);
 
 // unlink uni major
 router.delete(`/unlink`, auth, isAdmin, majControllers.unLinkUniMajor);
+
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { uploadFile, getFileStream } = require("../aws/s3");
+router.get("/images/:key", (req, res) => {
+  console.log(req.params);
+
+  const key = "maj/" + req.params.key;
+  const readStream = getFileStream(key);
+
+  readStream.pipe(res);
+});
 
 module.exports = router;

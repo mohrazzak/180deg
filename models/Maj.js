@@ -32,6 +32,13 @@ class Adm {
     INNER JOIN uni ON uni.id = uni_major.uni_id ;`;
     return db.execute(sql);
   }
+  static findAllMain() {
+    const sql = `    
+    SELECT *
+    FROM
+    major;`;
+    return db.execute(sql);
+  }
 
   static findById(id) {
     // const sql = `SELECT * FROM major WHERE id = ?;`;
@@ -48,6 +55,10 @@ class Adm {
     INNER JOIN uni ON uni.id = uni_major.uni_id 
     where major.id = ?;
 `;
+    return db.query(sql, id);
+  }
+  static findbyIdMain(id) {
+    const sql = `SELECT * FROM major WHERE id = ?;`;
     return db.query(sql, id);
   }
 

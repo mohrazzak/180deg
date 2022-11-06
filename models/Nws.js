@@ -28,7 +28,7 @@ class Nws {
   }
 
   static findById(id) {
-    const sql = `SELECT * FROM news INNER JOIN uni ON news.uni_id = uni.id WHERE id = ?;`;
+    const sql = `SELECT * FROM news INNER JOIN uni ON news.uni_id = uni.id WHERE news.id = ?;`;
     return db.query(sql, id);
   }
 

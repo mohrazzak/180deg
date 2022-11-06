@@ -1,10 +1,17 @@
 const express = require(`express`);
-const multer = require(`multer`);
 const path = require("path");
 const uniControllers = require(`../controllers/uni`);
 const auth = require(`../middlewares/auth/auth`);
 const isAdmin = require(`../middlewares/auth/is-admin`);
 const router = express.Router();
+
+// AWS
+
+const multer = require("multer");
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { uploadFile, getFileStream } = require("../aws/s3");
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -58,5 +65,14 @@ router.put(
 
 // Delete uni
 router.delete(`/delete/:id`, auth, isAdmin, uniControllers.deleteUni);
+
+router.get("/images/:key", (req, res) => {
+  console.log(req.params);
+
+  const key = "uni/" + req.params.key;
+  const readStream = getFileStream(key);
+
+  readStream.pipe(res);
+});
 
 module.exports = router;

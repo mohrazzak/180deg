@@ -1,6 +1,13 @@
 const Uni = require(`../models/Uni`);
 const errorHandler = require(`../helpers/errorHandler`);
 const fileDeleter = require(`../helpers/fileDeleter`);
+
+// aws
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { uploadFile, getFileStream, delFile } = require("../aws/s3");
+
 // Get all universities
 exports.getAllUnis = async (req, res, next) => {
   try {
@@ -49,11 +56,20 @@ exports.newUni = async (req, res, next) => {
       languages,
       pre_video_link,
     } = req.body;
+
     if (!req.file) {
       errorHandler(next, null, "حدث خطأ عند رفع صورة الجامعة", 400);
       console.log(req.file);
     }
-    const logo_url = req.file.path.replace("\\", "/").replace("\\", "/");
+
+    // aws upload
+    const file = req.file;
+    const result = await uploadFile(file, "/uni");
+    await unlinkFile(file.path);
+    console.log(result.Key);
+    const logo_url = "images/" + result.Key;
+    console.log(logo_url);
+
     const uniData = {
       uni_name,
       logo_url,
@@ -93,8 +109,13 @@ exports.updateUni = async (req, res, next) => {
     const oldUni = await Uni.findById(id);
     if (!req.file) logo_url = oldUni[0][0].logo_url;
     else {
-      logo_url = req.file.path.replace("\\", "/").replace("\\", "/");
-      fileDeleter(oldUni[0][0].logo_url);
+      // logo_url = req.file.path.replace("\\", "/").replace("\\", "/");
+      const file = req.file;
+      let a = oldUni[0][0].logo_url.split("/");
+      await delFile(a[1] + "/" + a[2]);
+      const result = await uploadFile(file, "/uni");
+      logo_url = "images/" + result.Key;
+      await unlinkFile(file.path);
     }
     const uniData = [
       uni_name,
@@ -122,7 +143,8 @@ exports.deleteUni = async (req, res, next) => {
   try {
     const id = req.params.id;
     const oldUni = await Uni.findById(id);
-    fileDeleter(oldUni[0][0].logo_url);
+    let a = oldUni[0][0].logo_url.split("/");
+    await delFile(a[1] + "/" + a[2]);
     await Uni.delete(id);
     res.json({ message: "تم حذف الجامعة بنجاح " });
   } catch (err) {

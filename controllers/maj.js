@@ -2,6 +2,11 @@ const Maj = require(`../models/Maj`);
 const errorHandler = require(`../helpers/errorHandler`);
 const fileDeleter = require(`../helpers/fileDeleter`);
 
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { uploadFile, getFileStream, delFile } = require("../aws/s3");
+
 // Get all admissions
 exports.getAllMaj = async (req, res, next) => {
   try {
@@ -34,7 +39,12 @@ exports.newMaj = async (req, res, next) => {
       errorHandler(next, null, "حدث خطأ عند رفع صورة الجامعة", 400);
       console.log(req.file);
     }
-    const image_url = req.file.path.replace("\\", "/").replace("\\", "/");
+    // const image_url = req.file.path.replace("\\", "/").replace("\\", "/");
+    const file = req.file;
+    const result = await uploadFile(file, "/maj");
+    await unlinkFile(file.path);
+    console.log(result.Key);
+    const image_url = "images/" + result.Key;
     const uniData = {
       major_name,
       major_desc,
@@ -54,11 +64,17 @@ exports.updateMaj = async (req, res, next) => {
     const { major_name, major_desc } = req.body;
     const id = req.params.id;
     let image_url;
-    const oldMaj = await Maj.findById(id);
+    const oldMaj = await Maj.findbyIdMain(id);
+    console.log(oldMaj[0]);
     if (!req.file) image_url = oldMaj[0][0].image_url;
     else {
-      image_url = req.file.path.replace("\\", "/").replace("\\", "/");
-      fileDeleter(oldMaj[0][0].image_url);
+      const file = req.file;
+      console.log(oldMaj[0][0].image_url);
+      let a = oldMaj[0][0].image_url.split("/");
+      await delFile(a[1] + "/" + a[2]);
+      const result = await uploadFile(file, "/maj");
+      image_url = "images/" + result.Key;
+      await unlinkFile(file.path);
     }
     const uniData = [major_name, major_desc, image_url, id];
     await Maj.update(uniData);
@@ -72,8 +88,9 @@ exports.updateMaj = async (req, res, next) => {
 exports.deleteMaj = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const oldMaj = await Maj.findById(id);
-    fileDeleter(oldMaj[0][0].logo_url);
+    const oldMaj = await Maj.findbyIdMain(id);
+    let a = oldMaj[0][0].image_url.split("/");
+    await delFile(a[1] + "/" + a[2]);
     await Maj.delete(id);
     res.json({ message: "تم حذف التخصص بنجاح " });
   } catch (err) {
@@ -88,6 +105,15 @@ exports.linkUniMajor = async (req, res, next) => {
     res.json({ message: "تم ربط التخصص بنجاح " });
   } catch (err) {
     errorHandler(next, err, "حدث خطأ عند ربط التخصص");
+  }
+};
+
+exports.getMajName = async (req, res, next) => {
+  try {
+    const [maj, _] = await Maj.findAllMain();
+    res.json({ message: maj });
+  } catch {
+    errorHandler(next, err, "حدث خطأ عند الحصول على اسم التخصص");
   }
 };
 

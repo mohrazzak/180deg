@@ -57,4 +57,17 @@ router.put(
 // Delete uni
 router.delete(`/delete/:id`, auth, isAdmin, NwsControllers.deleteNws);
 
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { uploadFile, getFileStream } = require("../aws/s3");
+router.get("/images/:key", (req, res) => {
+  console.log(req.params);
+
+  const key = "nws/" + req.params.key;
+  const readStream = getFileStream(key);
+
+  readStream.pipe(res);
+});
+
 module.exports = router;

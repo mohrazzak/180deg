@@ -2,6 +2,11 @@ const Sch = require(`../models/Sch`);
 const errorHandler = require(`../helpers/errorHandler`);
 const fileDeleter = require(`../helpers/fileDeleter`);
 
+// aws
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
+const { uploadFile, getFileStream, delFile } = require("../aws/s3");
 // Get all admissions
 exports.getAllSch = async (req, res, next) => {
   try {
@@ -38,7 +43,14 @@ exports.newSch = async (req, res, next) => {
       features,
     } = req.body;
     if (!req.file) errorHandler(next, null, "حدث خطأ عند رفع صورة المنحة", 400);
-    const image_url = req.file.path.replace("\\", "/").replace("\\", "/");
+    // aws upload
+    const file = req.file;
+    const result = await uploadFile(file, "/sch");
+    await unlinkFile(file.path);
+    console.log(result.Key);
+    const image_url = "images/" + result.Key;
+    console.log(image_url);
+
     const uniData = {
       title,
       ss_desc,
@@ -73,10 +85,16 @@ exports.updateSch = async (req, res, next) => {
     const id = req.params.id;
     let image_url;
     const oldSch = await Sch.findById(id);
+    console.log(req.file);
+
     if (!req.file) image_url = oldSch[0][0].image_url;
     else {
-      image_url = req.file.path.replace("\\", "/").replace("\\", "/");
-      fileDeleter(oldSch[0][0].image_url);
+      const file = req.file;
+      let a = oldSch[0][0].image_url.split("/");
+      await delFile(a[1] + "/" + a[2]);
+      const result = await uploadFile(file, "/sch");
+      image_url = "images/" + result.Key;
+      await unlinkFile(file.path);
     }
 
     const uniData = [
@@ -103,7 +121,8 @@ exports.deleteSch = async (req, res, next) => {
   try {
     const id = req.params.id;
     const oldSch = await Sch.findById(id);
-    fileDeleter(oldSch[0][0].image_url);
+    let a = oldSch[0][0].image_url.split("/");
+    await delFile(a[1] + "/" + a[2]);
     await Sch.delete(id);
     res.json({ message: "تم حذف المنح بنجاح " });
   } catch (err) {
