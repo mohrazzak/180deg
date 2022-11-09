@@ -36,6 +36,8 @@ exports.newYos = async (req, res, next) => {
       register_end,
       result_date,
       exam_centers,
+      register_url,
+      num,
       uni_id,
     } = req.body;
     const uniData = {
@@ -47,8 +49,11 @@ exports.newYos = async (req, res, next) => {
       register_end,
       result_date,
       exam_centers,
+      register_url,
+      num,
       uni_id,
     };
+    console.log(uniData);
 
     const yos = new Yos(uniData);
     await yos.save();
@@ -70,6 +75,8 @@ exports.updateYos = async (req, res, next) => {
       register_end,
       result_date,
       exam_centers,
+      register_url,
+      num,
       uni_id,
     } = req.body;
     const id = req.params.id;
@@ -82,6 +89,8 @@ exports.updateYos = async (req, res, next) => {
       register_end,
       result_date,
       JSON.stringify(exam_centers),
+      register_url,
+      num,
       uni_id,
       id,
     ];

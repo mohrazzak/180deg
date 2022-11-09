@@ -10,6 +10,8 @@ class Yos {
     this.register_end = uniData.register_end;
     this.result_date = uniData.result_date;
     this.exam_centers = uniData.exam_centers;
+    this.register_url = uniData.register_url;
+    this.num = uniData.num;
     this.uni_id = uniData.uni_id;
   }
 
@@ -23,6 +25,8 @@ class Yos {
       this.register_end,
       this.result_date,
       JSON.stringify(this.exam_centers),
+      this.register_url,
+      this.num,
       this.uni_id,
     ];
     console.log(values);
@@ -36,6 +40,8 @@ class Yos {
     register_end,
     result_date,
     exam_centers,
+    register_url,
+    num,
     uni_id
     ) VALUES (?);`;
     return db.query(sql, [values]);
@@ -43,7 +49,7 @@ class Yos {
 
   static update(values) {
     console.log(values);
-    const sql = `UPDATE yos SET exam_date = ?, degree_expiry = ?, exam_cost = ?, currency = ?, register_start = ?, register_end = ?, result_date = ?, exam_centers = ?, uni_id = ? WHERE id = ?;`;
+    const sql = `UPDATE yos SET exam_date = ?, degree_expiry = ?, exam_cost = ?, currency = ?, register_start = ?, register_end = ?, result_date = ?, exam_centers = ?, register_url = ?,num= ?, uni_id = ? WHERE id = ?;`;
     return db.query(sql, values);
   }
 
@@ -60,6 +66,8 @@ class Yos {
     register_end,
     result_date,
     exam_centers,
+    register_url,
+    num,
     uni_id
 FROM
     yos
@@ -82,6 +90,8 @@ SELECT
     register_end,
     result_date,
     exam_centers,
+    register_url,
+    num,
     uni_id
 FROM
     yos

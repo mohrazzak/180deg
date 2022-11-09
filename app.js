@@ -16,6 +16,7 @@ const nwsRoutes = require("./routes/nws");
 const schRoutes = require("./routes/sch");
 const authRoutes = require("./routes/auth");
 const imagesRoutes = require("./routes/images");
+const usersRoutes = require(`./routes/user`);
 const app = express();
 
 // Middlewares
@@ -34,10 +35,12 @@ app.use(`/maj`, majRoutes); // add image, DONE
 app.use(`/exm`, exmRoutes); // uniimage, name,
 app.use(`/frm`, frmRoutes);
 app.use(`/nws`, nwsRoutes); // add date, add uni name
+
 // uni major
 app.use(`/sch`, schRoutes);
 app.use(`/auth`, authRoutes);
 app.use(`/images`, imagesRoutes);
+app.use(`/user`, usersRoutes);
 
 // Error handlers
 app.use((error, req, res, next) => {

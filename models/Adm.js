@@ -14,6 +14,7 @@ class Adm {
     this.seats_url = uniData.seats_url;
     this.acceptable_degrees_url = uniData.acceptable_degrees_url;
     this.installment_url = uniData.installment_url;
+    this.num = uniData.num;
     this.uni_id = uniData.uni_id;
   }
 
@@ -31,6 +32,7 @@ class Adm {
       this.seats_url,
       this.acceptable_degrees_url,
       this.installment_url,
+      this.num,
       this.uni_id,
     ];
     let sql = `
@@ -47,6 +49,7 @@ class Adm {
     seats_url,
     acceptable_degrees_url,
     installment_url,
+    num,
     uni_id
     ) VALUES (?);`;
     return db.query(sql, [values]);
@@ -70,7 +73,8 @@ class Adm {
     register_url,
     seats_url,
     acceptable_degrees_url,
-    installment_url
+    installment_url,
+    num,
 FROM
     admission
         INNER JOIN
@@ -98,7 +102,8 @@ FROM
     register_url,
     seats_url,
     acceptable_degrees_url,
-    installment_url
+    installment_url,
+    num,
 FROM
     admission
         INNER JOIN
@@ -110,7 +115,7 @@ WHERE
   }
 
   static update(values) {
-    const sql = `UPDATE admission SET start_date = ?, register_type = ?, end_date = ?, result_date = ?, price = ?, currency = ?, bank_info = ?, note = ?, register_url = ?, seats_url = ?, acceptable_degrees_url = ?, installment_url = ?,uni_id = ?  where id = ?;`;
+    const sql = `UPDATE admission SET start_date = ?, register_type = ?, end_date = ?, result_date = ?, price = ?, currency = ?, bank_info = ?, note = ?, register_url = ?, seats_url = ?, acceptable_degrees_url = ?, installment_url = ?,num=?,uni_id = ?  where id = ?;`;
     return db.query(sql, values);
   }
   static delete(id) {

@@ -24,6 +24,10 @@ class User {
     const sql = `SELECT * FROM \`user\`;`;
     return db.execute(sql);
   }
+  static findEmails() {
+    const sql = `SELECT u_email FROM \`user\`;`;
+    return db.execute(sql);
+  }
 
   static findById(id) {
     const sql = `SELECT * FROM \`user\` WHERE id = ?;`;

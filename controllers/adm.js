@@ -40,6 +40,7 @@ exports.newAdm = async (req, res, next) => {
       seats_url,
       acceptable_degrees_url,
       installment_url,
+      num,
       uni_id,
     } = req.body;
     const uniData = {
@@ -55,6 +56,7 @@ exports.newAdm = async (req, res, next) => {
       seats_url,
       acceptable_degrees_url,
       installment_url,
+      num,
       uni_id,
     };
 
@@ -82,6 +84,7 @@ exports.updateAdm = async (req, res, next) => {
       seats_url,
       acceptable_degrees_url,
       installment_url,
+      num,
       uni_id,
     } = req.body;
     const id = req.params.id;
@@ -98,6 +101,7 @@ exports.updateAdm = async (req, res, next) => {
       seats_url,
       acceptable_degrees_url,
       installment_url,
+      num,
       uni_id,
       id,
     ];
