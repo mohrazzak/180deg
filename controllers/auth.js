@@ -181,10 +181,10 @@ exports.userReset = async (req, res, next) => {
     const html = `
     <p>You have requested a password reset
     Click this <a href="${
-      process.env.NODE_ENV == "development"
+      process.env.NODE_ENV == "production"
         ? process.env.localURI
         : process.env.DepURI
-    }/${resetToken}" target="_blank">link</a> to reset your password
+    }"/new-password"/${resetToken}" target="_blank">link</a> to reset your password
     and you are good to go.</p>
     `;
     process.env.NODE_ENV == "development"
