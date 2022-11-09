@@ -124,10 +124,10 @@ exports.UserSignup = async (req, res, next) => {
     const html = `
     <p>You are step away to set up your account, just click on this
     <a href="${
-      process.env.NODE_ENV == "development"
+      process.env.NODE_ENV == "production"
         ? process.env.localURI + "/" + emailToken
         : process.env.DepURI + "/" + emailToken
-    }"s
+    }"
     target="_blank">link</a> and you are good to go.</p>
     `;
     process.env.NODE_ENV == "development"
