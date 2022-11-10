@@ -111,7 +111,7 @@ exports.linkUniMajor = async (req, res, next) => {
 exports.getMajName = async (req, res, next) => {
   try {
     const [maj, _] = await Maj.findAllMain();
-    res.json({ message: maj });
+    res.json({ maj });
   } catch {
     errorHandler(next, err, "حدث خطأ عند الحصول على اسم التخصص");
   }

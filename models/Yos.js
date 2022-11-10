@@ -75,7 +75,10 @@ FROM
     uni ON yos.uni_id = uni.id;`;
     return db.execute(sql);
   }
-
+  static findAllMain() {
+    const sql = `SELECT * FROM yos;`;
+    return db.execute(sql);
+  }
   static findById(id) {
     const sql = `
 SELECT 

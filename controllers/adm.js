@@ -112,6 +112,15 @@ exports.updateAdm = async (req, res, next) => {
   }
 };
 
+exports.getAdmName = async (req, res, next) => {
+  try {
+    const [adm, _] = await Adm.findAllMain();
+    res.json({ adm });
+  } catch (err) {
+    errorHandler(next, err, "حدث خطأ عند الحصول على اسم المفاضلة");
+  }
+};
+
 // Delete admission
 exports.deleteAdm = async (req, res, next) => {
   try {

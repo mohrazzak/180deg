@@ -33,6 +33,8 @@ const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 // Get all unis
 router.get(`/`, auth, NwsControllers.getAllNws);
 
+// router.get(`/`,auth,NwsControllers.get)
+
 // Get single uni
 router.get(`/:id`, auth, NwsControllers.getNws);
 

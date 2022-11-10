@@ -100,6 +100,14 @@ exports.updateYos = async (req, res, next) => {
     errorHandler(next, err, "حدث خطأ عند تعديل الامتحان");
   }
 };
+exports.getYosName = async (req, res, next) => {
+  try {
+    const [yos, _] = await Yos.findAllMain();
+    res.json({ yos });
+  } catch {
+    errorHandler(next, err, "حدث خطأ عند الحصول على اليوس");
+  }
+};
 
 // Delete admission
 exports.deleteYos = async (req, res, next) => {

@@ -10,7 +10,13 @@ class Nws {
   }
 
   save() {
-    const values = [this.title, this.news_type, this.news_desc, this.image_url, this.uni_id];
+    const values = [
+      this.title,
+      this.news_type,
+      this.news_desc,
+      this.image_url,
+      this.uni_id,
+    ];
     let sql = `
     INSERT INTO news (
     title,
@@ -23,12 +29,13 @@ class Nws {
   }
 
   static findAll() {
-    const sql = `SELECT * FROM news INNER JOIN uni ON news.uni_id = uni.id;`;
+    const sql = `SELECT * FROM news;`;
     return db.execute(sql);
   }
 
   static findById(id) {
-    const sql = `SELECT * FROM news INNER JOIN uni ON news.uni_id = uni.id WHERE news.id = ?;`;
+    // const sql = `SELECT * FROM news INNER JOIN uni ON news.uni_id = uni.id WHERE news.id = ?;`;
+    const sql = `SELECT * FROM news WHERE news.id = ?;`;
     return db.query(sql, id);
   }
 

@@ -74,7 +74,7 @@ class Adm {
     seats_url,
     acceptable_degrees_url,
     installment_url,
-    num,
+    num
 FROM
     admission
         INNER JOIN
@@ -82,7 +82,10 @@ FROM
     `;
     return db.execute(sql);
   }
-
+  static findAllMain() {
+    const sql = `SELECT * FROM admission;`;
+    return db.execute(sql);
+  }
   static findById(id) {
     // const sql = `SELECT * FROM admission WHERE id = ?;`;
     const sql = `
@@ -103,7 +106,7 @@ FROM
     seats_url,
     acceptable_degrees_url,
     installment_url,
-    num,
+    num
 FROM
     admission
         INNER JOIN

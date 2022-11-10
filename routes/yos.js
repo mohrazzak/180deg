@@ -8,8 +8,10 @@ const router = express.Router();
 // Get all unis
 router.get(`/`, auth, yosControllers.getAllYos);
 
+router.get(`/name`, yosControllers.getYosName);
 // Get single uni
 router.get(`/:id`, auth, yosControllers.getYos);
+
 
 // Add new uni
 router.post(`/new`, auth, isAdmin, yosControllers.newYos);

@@ -7,9 +7,9 @@ const router = express.Router();
 // Get all unis
 router.get(`/`, admissionControllers.getAllAdm);
 
+router.get(`/name`, admissionControllers.getAdmName);
 // Get single uni
 router.get(`/:id`, admissionControllers.getAdm);
-
 // Add new uni
 router.post(`/new`, admissionControllers.newAdm);
 

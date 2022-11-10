@@ -58,6 +58,15 @@ exports.newNws = async (req, res, next) => {
   }
 };
 
+exports.getNwsName = async (req, res, next) => {
+  try {
+    const [maj, _] = await Nws.findAllMain();
+    res.json({ maj });
+  } catch {
+    errorHandler(next, err, "حدث خطأ عند الحصول على اسم التخصص");
+  }
+};
+
 // Update admission
 exports.updateNws = async (req, res, next) => {
   try {
