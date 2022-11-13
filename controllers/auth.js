@@ -125,8 +125,8 @@ exports.UserSignup = async (req, res, next) => {
     <p>You are step away to set up your account, just click on this
     <a href="${
       process.env.NODE_ENV == "production"
-        ? process.env.localURI + "/" + emailToken
-        : process.env.DepURI + "/" + emailToken
+        ? process.env.DepURI + "/" + emailToken
+        : process.env.localURI + "/" + emailToken
     }"
     target="_blank">link</a> and you are good to go.</p>
     `;
@@ -182,8 +182,8 @@ exports.userReset = async (req, res, next) => {
     <p>You have requested a password reset
     Click this <a href="${
       process.env.NODE_ENV == "production"
-        ? process.env.localURI
-        : process.env.DepURI
+        ? process.env.DepURI
+        : process.env.localURI
     }"/new-password"/${resetToken}" target="_blank">link</a> to reset your password
     and you are good to go.</p>
     `;
