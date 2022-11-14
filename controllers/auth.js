@@ -189,7 +189,7 @@ exports.userReset = async (req, res, next) => {
     `;
     process.env.NODE_ENV == "development"
       ? console.log(resetToken)
-      : sendMail(u_email, resetToken, "SignUp confirmation", html);
+      : sendMail(u_email, resetToken, "Password Reset", html);
 
     res.json({ message: "تم انشاء الادمن بنجاح" });
   } catch (err) {
