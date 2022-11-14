@@ -184,7 +184,7 @@ exports.userReset = async (req, res, next) => {
       process.env.NODE_ENV == "production"
         ? process.env.DepURI
         : process.env.localURI
-    }"/new-password"/${resetToken}" target="_blank">link</a> to reset your password
+    }/new-password/${resetToken}" target="_blank">link</a> to reset your password
     and you are good to go.</p>
     `;
     process.env.NODE_ENV == "development"
