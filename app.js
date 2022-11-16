@@ -48,7 +48,7 @@ app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;
-  res.status(status).json({ message, data });
+  res.status(status).json({ message, data, err: error });
 });
 
 // 404
