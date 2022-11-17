@@ -7,7 +7,6 @@ module.exports = (req, res, next) => {
     // const error = new Error("Not authenticated.");
     // error.statusCode = codes.UNAUTHORIZED;
     // return next(error);
-    console.log("Not logged");
     return next();
   }
   const token = authHeader.split(" ")[1];
@@ -19,7 +18,7 @@ module.exports = (req, res, next) => {
     return next(err);
   }
   if (!decodedToken) {
-    const error = new Error("Not authenticated.");
+    const error = new Error("غير مصرح لك بتنفيذ العملية.");
     error.statusCode = codes.UNAUTHORIZED;
     return next(error);
   }
@@ -28,7 +27,5 @@ module.exports = (req, res, next) => {
     role: decodedToken.role,
   };
   req.user = user;
-  console.log("logged");
-  console.log(req.user);
   next();
 };

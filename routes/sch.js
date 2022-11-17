@@ -61,7 +61,6 @@ const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 const { uploadFile, getFileStream } = require("../aws/s3");
 router.get("/images/:key", (req, res) => {
-  console.log(req.params);
 
   const key = "sch/" + req.params.key;
   const readStream = getFileStream(key);

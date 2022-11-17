@@ -37,13 +37,11 @@ exports.newMaj = async (req, res, next) => {
 
     if (!req.file) {
       errorHandler(next, null, "حدث خطأ عند رفع صورة الجامعة", 400);
-      console.log(req.file);
     }
     // const image_url = req.file.path.replace("\\", "/").replace("\\", "/");
     const file = req.file;
     const result = await uploadFile(file, "/maj");
     await unlinkFile(file.path);
-    console.log(result.Key);
     const image_url = "images/" + result.Key;
     const uniData = {
       major_name,
@@ -65,11 +63,9 @@ exports.updateMaj = async (req, res, next) => {
     const id = req.params.id;
     let image_url;
     const oldMaj = await Maj.findbyIdMain(id);
-    console.log(oldMaj[0]);
     if (!req.file) image_url = oldMaj[0][0].image_url;
     else {
       const file = req.file;
-      console.log(oldMaj[0][0].image_url);
       let a = oldMaj[0][0].image_url.split("/");
       await delFile(a[1] + "/" + a[2]);
       const result = await uploadFile(file, "/maj");

@@ -29,7 +29,6 @@ class Yos {
       this.num,
       this.uni_id,
     ];
-    console.log(values);
     let sql = `
     INSERT INTO yos (
     exam_date,
@@ -48,7 +47,6 @@ class Yos {
   }
 
   static update(values) {
-    console.log(values);
     const sql = `UPDATE yos SET exam_date = ?, degree_expiry = ?, exam_cost = ?, currency = ?, register_start = ?, register_end = ?, result_date = ?, exam_centers = ?, register_url = ?,num= ?, uni_id = ? WHERE id = ?;`;
     return db.query(sql, values);
   }

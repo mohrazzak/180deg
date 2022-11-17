@@ -27,7 +27,7 @@ exports.userLogin = async (req, res, next) => {
     if (!result) {
       return res
         .status(codes.UNAUTHORIZED)
-        .json({ message: `Password incorrect.` });
+        .json({ message: `كلمة السر خاطئة` });
     }
     const token = await jwt.sign(
       {
@@ -211,7 +211,6 @@ exports.resetHandler = async (req, res, next) => {
     let user = await User.findByEmail(email);
     user = user[0][0];
     user.u_password = await bcrypt.hash(u_password, 10);
-    console.log(user);
     await User.update([user.u_name, user.u_email, user.u_password, user.id]);
     res.json({ message: "تم تعديل كلمة السر" });
   } catch (err) {

@@ -23,7 +23,6 @@ class Sch {
       this.features,
       this.image_url,
     ];
-    console.log(typeof this.whoCan);
     let sql = `
     INSERT INTO scholar_ship (
       title,

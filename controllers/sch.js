@@ -47,9 +47,7 @@ exports.newSch = async (req, res, next) => {
     const file = req.file;
     const result = await uploadFile(file, "/sch");
     await unlinkFile(file.path);
-    console.log(result.Key);
     const image_url = "images/" + result.Key;
-    console.log(image_url);
 
     const uniData = {
       title,
@@ -85,7 +83,6 @@ exports.updateSch = async (req, res, next) => {
     const id = req.params.id;
     let image_url;
     const oldSch = await Sch.findById(id);
-    console.log(req.file);
 
     if (!req.file) image_url = oldSch[0][0].image_url;
     else {

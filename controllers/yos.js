@@ -53,7 +53,6 @@ exports.newYos = async (req, res, next) => {
       num,
       uni_id,
     };
-    console.log(uniData);
 
     const yos = new Yos(uniData);
     await yos.save();

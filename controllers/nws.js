@@ -40,7 +40,6 @@ exports.newNws = async (req, res, next) => {
     const file = req.file;
     const result = await uploadFile(file, "/nws");
     await unlinkFile(file.path);
-    console.log(result.Key);
     const image_url = "images/" + result.Key;
     const uniData = {
       title,

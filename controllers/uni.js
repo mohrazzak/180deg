@@ -59,16 +59,13 @@ exports.newUni = async (req, res, next) => {
 
     if (!req.file) {
       errorHandler(next, null, "حدث خطأ عند رفع صورة الجامعة", 400);
-      console.log(req.file);
     }
 
     // aws upload
     const file = req.file;
     const result = await uploadFile(file, "/uni");
     await unlinkFile(file.path);
-    console.log(result.Key);
     const logo_url = "images/" + result.Key;
-    console.log(logo_url);
 
     const uniData = {
       uni_name,

@@ -67,7 +67,6 @@ router.put(
 router.delete(`/delete/:id`, auth, isAdmin, uniControllers.deleteUni);
 
 router.get("/images/:key", (req, res) => {
-  console.log(req.params);
 
   const key = "uni/" + req.params.key;
   const readStream = getFileStream(key);

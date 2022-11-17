@@ -22,7 +22,6 @@ function uploadFile(file, path) {
     Body: fileStream,
     Key: file.filename,
   };
-  console.log(uploadParams);
 
   return s3.upload(uploadParams).promise();
 }

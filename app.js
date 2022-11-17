@@ -44,7 +44,7 @@ app.use(`/user`, usersRoutes);
 
 // Error handlers
 app.use((error, req, res, next) => {
-  console.log(error);
+  error;
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;

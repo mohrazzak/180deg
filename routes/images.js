@@ -11,7 +11,6 @@ const { uploadFile, getFileStream } = require("../aws/s3");
 
 // Get all unis
 router.get("/uni/:key", (req, res) => {
-  console.log(req.params);
 
   const key = "uni/" + req.params.key;
   const readStream = getFileStream(key);
@@ -20,7 +19,6 @@ router.get("/uni/:key", (req, res) => {
 });
 
 router.get("/sch/:key", (req, res) => {
-  console.log(req.params);
 
   const key = "sch/" + req.params.key;
   const readStream = getFileStream(key);
@@ -28,7 +26,6 @@ router.get("/sch/:key", (req, res) => {
   readStream.pipe(res);
 });
 router.get("/nws/:key", (req, res) => {
-  console.log(req.params);
 
   const key = "nws/" + req.params.key;
   const readStream = getFileStream(key);
@@ -37,7 +34,6 @@ router.get("/nws/:key", (req, res) => {
 });
 
 router.get("/maj/:key", (req, res) => {
-  console.log(req.params);
 
   const key = "maj/" + req.params.key;
   const readStream = getFileStream(key);

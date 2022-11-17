@@ -27,7 +27,6 @@ class Uni {
       JSON.stringify(this.languages),
       this.pre_video_link,
     ];
-    console.log(values);
     let sql = `
     INSERT INTO uni (
     uni_name,

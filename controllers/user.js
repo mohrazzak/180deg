@@ -4,7 +4,6 @@ const errorHandler = require(`../helpers/errorHandler`);
 // Get all admissions
 exports.getAllUsers = async (req, res, next) => {
   try {
-    console.log("t");
     const [emails, _] = await User.findEmails();
     res.json({
       emails: emails.map((e) => e.u_email),
