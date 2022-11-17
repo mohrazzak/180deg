@@ -122,17 +122,17 @@ exports.UserSignup = async (req, res, next) => {
     );
 
     const html = `
-    <p>You are step away to set up your account, just click on this
+    <p>يسعدنا انك تريد الانضمام ألينا، اذا أردت تفعيل الحساب يرجى الضغط على 
     <a href="${
       process.env.NODE_ENV == "production"
         ? process.env.DepURI + "/confirmed/" + emailToken
         : process.env.localURI + "/confirmed/" + emailToken
     }"
-    target="_blank">link</a> and you are good to go.</p>
+    target="_blank">الرابط التالي</a>.</p>
     `;
     process.env.NODE_ENV == "development"
       ? console.log(emailToken)
-      : sendMail(u_email, emailToken, "SignUp confirmation", html);
+      : sendMail(u_email, emailToken, "تأكيد الحساب", html);
 
     res.json({ message: "تم انشاء المستخدم بنجاح" });
   } catch (err) {
@@ -179,17 +179,17 @@ exports.userReset = async (req, res, next) => {
       { expiresIn: `1h` }
     );
     const html = `
-    <p>You have requested a password reset
+    <p>لتغير كلمة السر على موقعنا يرجى الضغط على
     Click this <a href="${
       process.env.NODE_ENV == "production"
         ? process.env.DepURI
         : process.env.localURI
-    }/new-password/${resetToken}" target="_blank">link</a> to reset your password
-    and you are good to go.</p>
+    }/new-password/${resetToken}" target="_blank"> الرابط التالي</a>
+    </p>
     `;
     process.env.NODE_ENV == "development"
       ? console.log(resetToken)
-      : sendMail(u_email, resetToken, "Password Reset", html);
+      : sendMail(u_email, resetToken, "تغيير كلمة السر", html);
 
     res.json({ message: "تم انشاء الادمن بنجاح" });
   } catch (err) {
