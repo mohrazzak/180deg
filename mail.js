@@ -19,7 +19,7 @@ exports.sendMail = async (email, token, subject, message) => {
     html: `
     <h1>180 Degrees Academy</h1>
     ${message}
-    <p>Greetings.</p>
+    <p>مع كامل التحيات.</p>
     `,
   });
 };
